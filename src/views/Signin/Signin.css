@@ -1,0 +1,38 @@
+.register {
+    height: calc(100vh - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+  }
+  .register-container {
+    background: #fff;
+    padding: 50px;
+    width: 520px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  .register-container h2 {
+    margin-bottom: 30px;
+  }
+  .btn {
+    width: 100%;
+  }
+  .login-link {
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  .login-link span{
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+  .error-message {
+    display: block;
+    color: red;
+    font-size: 0.9rem;
+  }
+  .common-error{
+    text-align: center;
+    text-transform: uppercase;
+    margin: 20px
+  }

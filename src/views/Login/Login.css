@@ -1,0 +1,36 @@
+.common-error{
+    text-align: center;
+    text-transform: uppercase;
+    margin: 20px
+  }
+  .login {
+    height: calc(100vh - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login-container {
+    background: #fff;
+    padding: 50px;
+    border-radius: 10px;
+    min-width: 420px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  .login-container h2 {
+    margin-bottom: 30px;
+  }
+  .btn {
+    width: 100%;
+  }
+  .register-link {
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  .register-link > span{
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+  .error-message {
+    color: red;
+    font-size: 0.8rem;
+  }
