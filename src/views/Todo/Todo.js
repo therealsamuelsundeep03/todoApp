@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DndContext } from "@dnd-kit/core";
 
 import axios from "../../api/axios";
+import Nav from "../../components/Nav";
 import ShowTasks from "../../components/ShowTasks";
 import useAuth from "../../hooks/useAuth";
 import Modal from "../../components/Modal";
@@ -94,7 +94,7 @@ const Todo = () => {
           addTasks.unshift({ task });
           setTasks(addTasks);
         }
-      }else{
+      } else {
         setTaskExists(true);
       }
       setTask("");
@@ -111,8 +111,9 @@ const Todo = () => {
       setLoading(false);
     }
   };
-  console.log(taskExists, show)
   return (
+   <>
+   <Nav />
     <div className="todo-container">
       <div className="todo">
         {/* form to add a task */}
@@ -143,7 +144,8 @@ const Todo = () => {
         ) : tasks?.length ? (
           <div className="tasks">
             <ShowTasks
-              selectedTask={tasks}
+              setTasks={setTasks}
+              tasks={tasks}
               handleShow={handleShow}
               setDeleteTask={setDeleteTask}
             />
@@ -154,24 +156,26 @@ const Todo = () => {
       </div>
       <Modal
         show={show}
-        modalHead = {"Delete Message"}
-        modalBody = {"Have you completed the task?"}
-        modalButton = {"Yes"}
+        modalHead={"Delete Message"}
+        modalBody={"Have you completed the task?"}
+        modalButton={"Yes"}
         handleShow={handleShow}
         handleCheck={handleCheck}
         deletetask={deletetask}
       />
-       {taskExists && 
-       <Modal
-       show={show}
-       modalHead = {"Alert Message"}
-       modalBody = {"Task already exists"}
-       modalButton = {"ok"}
-       handleShow={handleShow}
-       taskExists = {taskExists}
-       setTaskExists = {setTaskExists}
-     />}
+      {taskExists && (
+        <Modal
+          show={show}
+          modalHead={"Alert Message"}
+          modalBody={"Task already exists"}
+          modalButton={"ok"}
+          handleShow={handleShow}
+          taskExists={taskExists}
+          setTaskExists={setTaskExists}
+        />
+      )}
     </div>
+    </>
   );
 };
 
