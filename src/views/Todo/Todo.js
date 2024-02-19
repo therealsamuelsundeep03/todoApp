@@ -6,6 +6,7 @@ import Nav from "../../components/Nav";
 import ShowTasks from "../../components/ShowTasks";
 import useAuth from "../../hooks/useAuth";
 import Modal from "../../components/Modal";
+import Chart from "../../components/Chart";
 import "./Todo.css";
 
 const Todo = () => {
@@ -18,11 +19,13 @@ const Todo = () => {
   const [taskExists, setTaskExists] = useState(false);
 
   const navigate = useNavigate();
+  // get the user from use auth hook
   const user = useAuth();
 
   const fetchData = async () => {
     try {
       if (user) {
+        // fetching the tasks from the backend
         const { data } = await axios.get(`/todo/${user}`);
         setTasks(data.tasks);
       }
@@ -44,18 +47,19 @@ const Todo = () => {
     fetchData();
   }, [user]);
 
-  // handle the input in the add task
+  // handle the form input
   const handleChange = ({ target: { value, checked } }) => {
     setError("");
     setTask(value, checked);
   };
 
+  // function to control modal
   const handleShow = (e, task) => {
     setShow((prev) => !prev);
     !show ? setDeleteTask(task) : setDeleteTask({});
   };
 
-  // handle the check box input
+  // remove the task from the tasks 
   const handleCheck = async (task) => {
     try {
       const { data } = await axios.delete(`/todo/${user}/${task.task}`);
@@ -79,11 +83,13 @@ const Todo = () => {
   };
 
   // lastest tasks will be added to the top of the list
+  // adding the tasks to the database
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       if (!task?.length) return setError("Task is Required");
       const isTaskExists = tasks.some((t) => t.task === task);
+      // if the task is not in the list add the task to the databse or display modal
       if (!isTaskExists) {
         const { data } = await axios.post("/todo", {
           task,
@@ -154,6 +160,7 @@ const Todo = () => {
           ""
         )}
       </div>
+      {/* modal to confirm that the task is completed */}
       <Modal
         show={show}
         modalHead={"Delete Message"}
@@ -163,6 +170,7 @@ const Todo = () => {
         handleCheck={handleCheck}
         deletetask={deletetask}
       />
+      {/* modal to display that the user has already added the task to the task list */}
       {taskExists && (
         <Modal
           show={show}
@@ -175,6 +183,7 @@ const Todo = () => {
         />
       )}
     </div>
+    <Chart />
     </>
   );
 };
